@@ -4,7 +4,7 @@ import { Account, Home, NotFound } from '../pages/index';
 
 const Router = () => {
   return (
-    <div className="uk-section">
+    <div className="uk-container">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/account" element={<Account />} />
