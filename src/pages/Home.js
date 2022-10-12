@@ -1,9 +1,14 @@
 import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import SimpleCard from '../components/layout/elements/SimpleCard';
 import PoolCard from '../components/layout/elements/PoolCard';
 
 const Home = () => {
+  const appTheme = useSelector((state) => state.appState.theme);
+
+  console.log(appTheme);
+
   return (
     <Fragment>
       <h2>XOC Data</h2>
