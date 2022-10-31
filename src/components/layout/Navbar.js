@@ -1,6 +1,10 @@
-import React, { useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { web3actions } from '../../store/web3StateSlice';
+import ConnectWalletButton from './web3/ConnectWalletButton';
 import logo from '../../assets/ethereum.png';
 import bear from '../../assets/bear.png';
 
@@ -13,6 +17,9 @@ const ROUTES = [
 const Navbar = () => {
   const navMenuRef = useRef();
   const accountMenuRef = useRef();
+  const dispatch = useDispatch();
+  const { isConnected } = useSelector((state) => state.web3State);
+  console.log(isConnected);
 
   const navMenuToggle = () => {
     navMenuRef.current.classList.toggle('nav-menu-active');
@@ -20,6 +27,10 @@ const Navbar = () => {
 
   const accountMenuToggle = () => {
     accountMenuRef.current.classList.toggle('account-menu-active');
+  };
+
+  const disconnectWalletHandler = () => {
+    dispatch(web3actions.disconnectAccount());
   };
 
   return (
@@ -48,31 +59,53 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="uk-navbar-right">
-        <ul ref={accountMenuRef} id="account-menu" className="uk-navbar-nav">
-          <li>
-            <p>0x00...BD23</p>
-          </li>
-          <li>
-            <select name="chain_id" id="nav-chain-select" className="uk-select">
-              <option value="Polygon">Polygon</option>
-              <option value="Mumbai">Mumbai</option>
-              <option value="Goerli">Goerli</option>
-            </select>
-          </li>
-        </ul>
-        <div
-          className="uk-flex uk-flex-middle uk-flex-wrap"
-          onClick={accountMenuToggle}
-        >
-          <img
-            src={bear}
-            className="uk-border-circle"
-            width="40"
-            height="40"
-            alt="User Avatar"
-          />
-          <p>0x00...BD23</p>
-        </div>
+        {isConnected ? (
+          <Fragment>
+            <ul
+              ref={accountMenuRef}
+              id="account-menu"
+              className="uk-navbar-nav"
+            >
+              <li>
+                <p>0x00...BD23</p>
+              </li>
+              <li>
+                <select
+                  name="chain_id"
+                  id="nav-chain-select"
+                  className="uk-select"
+                >
+                  <option value="Polygon">Polygon</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Goerli">Goerli</option>
+                </select>
+              </li>
+            </ul>
+            <div
+              className="uk-flex uk-flex-middle uk-flex-wrap"
+              onClick={accountMenuToggle}
+            >
+              <img
+                src={bear}
+                className="uk-border-circle"
+                width="40"
+                height="40"
+                alt="User Avatar"
+              />
+              <p>0x00...BD23</p>
+            </div>
+            <div className="uk-flex uk-flex-center uk-flex-middle">
+              <button
+                className="uk-button uk-button-primary"
+                onClick={disconnectWalletHandler}
+              >
+                Disconnect
+              </button>
+            </div>
+          </Fragment>
+        ) : (
+          <ConnectWalletButton />
+        )}
       </div>
     </StyledNav>
   );

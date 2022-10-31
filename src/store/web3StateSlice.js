@@ -14,13 +14,26 @@ const web3StateSlice = createSlice({
   initialState: initialWeb3State,
   reducers: {
     connectAccount: (state, payload) => {
-      state.accounts = payload.accounts;
-      state.connectedAccount = payload.accounts[0];
-      state.networkId = payload.chainId;
+      console.log(payload);
+      const { accounts, chainId } = payload.payload;
+      console.log('Accounts: ', accounts);
+      console.log('chainId: ', chainId);
+      state.isConnected = true;
+      state.accounts = accounts;
+      state.connectedAccount = accounts[0];
+      state.networkId = chainId;
       state.networkName = networks[chainId];
     },
     disconnectAccount: (state) => {
-      state = initialWeb3State;
+      state.isConnected = false;
+      state.accounts = [];
+      state.connectedAccount = null;
+      state.networkId = null;
+      state.networkName = null;
     },
   },
 });
+
+export const web3actions = web3StateSlice.actions;
+
+export default web3StateSlice.reducer;
