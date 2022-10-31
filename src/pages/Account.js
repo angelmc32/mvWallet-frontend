@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const Account = () => {
-  return <h2>Account</h2>;
+  return (
+    <Fragment>
+      <h2>Account</h2>
+    </Fragment>
+  );
 };
 
 export default Account;

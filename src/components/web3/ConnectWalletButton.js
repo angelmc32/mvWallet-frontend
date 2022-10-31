@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { web3actions } from '../../../store/web3StateSlice';
+import { web3actions } from '../../store/web3StateSlice';
 import notification from '../ui/Notifications';
 
 const ConnectWalletButton = () => {

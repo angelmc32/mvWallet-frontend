@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { web3actions } from '../../store/web3StateSlice';
-import ConnectWalletButton from './web3/ConnectWalletButton';
+import ConnectWalletButton from '../web3/ConnectWalletButton';
 import logo from '../../assets/ethereum.png';
 import bear from '../../assets/bear.png';
 
@@ -112,13 +112,13 @@ const Navbar = () => {
 };
 
 const StyledNav = styled.nav`
-  background-color: #a8bc9d !important;
+  background-color: #1f0045 !important;
   max-height: 64px;
   max-width: 100%;
 
   div > ul > li > a {
     text-transform: none;
-    color: #000;
+    color: #fff;
   }
 
   .uk-navbar-item,
@@ -146,7 +146,7 @@ const StyledNav = styled.nav`
       position: absolute;
       height: calc(100vh - 64px);
       top: 64px;
-      background-color: #a8bc9d;
+      background-color: #1f0045;
       margin: 0 !important;
       transition: transform 0.5s ease-in;
       z-index: 100;
@@ -168,7 +168,7 @@ const StyledNav = styled.nav`
 
     #nav-menu > *,
     #account-menu > * {
-      background-color: #a8bc9d;
+      background-color: #1f0045;
       height: 64px;
     }
 

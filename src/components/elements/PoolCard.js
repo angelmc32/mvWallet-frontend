@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import coin from '../../../assets/ethereum.png';
-import bear from '../../../assets/bear.png';
+import coin from '../../assets/ethereum.png';
+import bear from '../../assets/bear.png';
 
 const PoolCard = ({ poolName, poolApy, poolTvl, poolDescription }) => {
   return (
