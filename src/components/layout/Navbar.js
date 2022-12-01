@@ -1,111 +1,64 @@
-import React, { Fragment, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useRef } from "react";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
-import { web3actions } from '../../store/web3StateSlice';
-import ConnectWalletButton from '../web3/ConnectWalletButton';
-import logo from '../../assets/ethereum.png';
-import bear from '../../assets/bear.png';
+import logo from "../../assets/512-red-outline-purple-noletters.svg";
 
 const ROUTES = [
-  ['Home', '/'],
-  ['Pools', '/pools'],
-  ['About', '/about'],
+  ["Juega", "/jugar"],
+  ["Aprende", "/aprender"],
+  ["Explora", "/explorar"],
 ];
 
 const Navbar = () => {
   const navMenuRef = useRef();
-  const accountMenuRef = useRef();
-  const dispatch = useDispatch();
   const { isConnected } = useSelector((state) => state.web3State);
   console.log(isConnected);
 
   const navMenuToggle = () => {
-    navMenuRef.current.classList.toggle('nav-menu-active');
-  };
-
-  const accountMenuToggle = () => {
-    accountMenuRef.current.classList.toggle('account-menu-active');
-  };
-
-  const disconnectWalletHandler = () => {
-    dispatch(web3actions.disconnectAccount());
+    navMenuRef.current.classList.toggle("nav-menu-active");
   };
 
   return (
     <StyledNav className="uk-navbar uk-navbar-container" uk-navbar="true">
       <div className="uk-navbar-left">
-        <div
-          className="uk-navbar-item uk-logo uk-flex uk-flex-middle"
-          onClick={navMenuToggle}
+        <NavLink to="/" className="uk-flex uk-flex-middle">
+          <div className="uk-navbar-item uk-logo uk-flex uk-flex-middle uk-margin-small-right">
+            <img
+              data-src={logo}
+              width="32"
+              height="32"
+              alt=""
+              data-uk-img=""
+              uk-image="true"
+            />
+          </div>
+          innvertir
+        </NavLink>
+      </div>
+      <div className="uk-navbar-right">
+        <Hamburger onClick={navMenuToggle} onKeyDown={navMenuToggle}>
+          <span />
+          <span />
+          <span className="uk-margin-remove" />
+        </Hamburger>
+        <Menu
+          ref={navMenuRef}
+          id="nav-menu"
+          className="uk-navbar-nav uk-margin-right@s"
         >
-          <img
-            data-src={logo}
-            width="40"
-            height="40"
-            alt=""
-            data-uk-img=""
-            uk-image="true"
-            className="uk-margin-right-small"
-          />
-        </div>
-        <ul ref={navMenuRef} id="nav-menu" className="uk-navbar-nav">
           {ROUTES.map((route, index) => (
             <li key={index} onClick={navMenuToggle}>
               <NavLink to={route[1]}>{route[0]}</NavLink>
             </li>
           ))}
-        </ul>
-      </div>
-      <div className="uk-navbar-right">
-        {isConnected ? (
-          <Fragment>
-            <ul
-              ref={accountMenuRef}
-              id="account-menu"
-              className="uk-navbar-nav"
-            >
-              <li>
-                <p>0x00...BD23</p>
-              </li>
-              <li>
-                <select
-                  name="chain_id"
-                  id="nav-chain-select"
-                  className="uk-select"
-                >
-                  <option value="Polygon">Polygon</option>
-                  <option value="Mumbai">Mumbai</option>
-                  <option value="Goerli">Goerli</option>
-                </select>
-              </li>
-            </ul>
-            <div
-              className="uk-flex uk-flex-middle uk-flex-wrap"
-              onClick={accountMenuToggle}
-            >
-              <img
-                src={bear}
-                className="uk-border-circle"
-                width="40"
-                height="40"
-                alt="User Avatar"
-              />
-              <p>0x00...BD23</p>
-            </div>
-            <div className="uk-flex uk-flex-center uk-flex-middle">
-              <button
-                className="uk-button uk-button-primary"
-                onClick={disconnectWalletHandler}
-              >
-                Disconnect
-              </button>
-            </div>
-          </Fragment>
-        ) : (
-          <ConnectWalletButton />
-        )}
+          <li onClick={navMenuToggle}>
+            <NavLink to="/auth">
+              <button className="uk-button uk-button-primary">Ingresar</button>
+            </NavLink>
+          </li>
+        </Menu>
       </div>
     </StyledNav>
   );
@@ -116,7 +69,8 @@ const StyledNav = styled.nav`
   max-height: 64px;
   max-width: 100%;
 
-  div > ul > li > a {
+  div > ul > li > a,
+  div > a {
     text-transform: none;
     color: #fff;
   }
@@ -130,6 +84,15 @@ const StyledNav = styled.nav`
 
   div.uk-navbar-left {
     margin-left: 7.5%;
+    gap: 10px !important;
+  }
+
+  div.uk-navbar-left > a,
+  div.uk-navbar-left > a:hover,
+  div.uk-navbar-left > a:active,
+  div.uk-navbar-left > a:visited,
+  a:focus {
+    text-decoration: none;
   }
 
   div.uk-navbar-right {
@@ -146,9 +109,12 @@ const StyledNav = styled.nav`
       position: absolute;
       height: calc(100vh - 64px);
       top: 64px;
-      background-color: #1f0045;
+      background-color: #29005c;
+      border-left: #1f0045 solid 5px;
       margin: 0 !important;
+      transform: translateX(100%);
       transition: transform 0.5s ease-in;
+      right: 0px;
       z-index: 100;
       display: flex;
       flex-direction: column;
@@ -156,43 +122,16 @@ const StyledNav = styled.nav`
       gap: 0;
     }
 
-    #nav-menu {
-      left: 0px;
-      transform: translateX(-100%);
-    }
-
-    #account-menu {
-      right: 0px;
-      transform: translateX(100%);
-    }
-
-    #nav-menu > *,
-    #account-menu > * {
-      background-color: #1f0045;
+    #nav-menu > * {
+      background-color: #29005c;
       height: 64px;
     }
 
-    #account-menu > li {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0 5%;
-    }
-
-    #account-menu > li > p {
-      margin: 0;
-    }
-
-    #nav-menu > *:not(:last-child),
-    #account-menu > *:not(:last-child) {
+    #nav-menu > *:not(:last-child) {
       border-bottom: 0.5px #fafafa solid;
     }
 
     .nav-menu-active {
-      transform: translateX(0%) !important;
-    }
-
-    .account-menu-active {
       transform: translateX(0%) !important;
     }
   }
@@ -204,24 +143,53 @@ const StyledNav = styled.nav`
     div.uk-navbar-right {
       margin-right: 5%;
     }
+  }
+
+  @media screen and (min-width: 1366px) {
+    div.uk-navbar-left {
+      margin-left: 2.5%;
+    }
+    div.uk-navbar-right {
+      margin-right: 2.5%;
+    }
 
     div.uk-navbar-right > div > p {
       display: block;
       margin-left: 10px;
     }
+  }
+`;
 
-    ul#nav-menu > li {
-      display: block;
+const Hamburger = styled.div`
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  span {
+    height: 3px;
+    width: 25px;
+    background: #f8f8f8;
+    margin-bottom: 6px;
+    border-radius: 500px;
+  }
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+const Menu = styled.ul`
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    li:not(:last-child) {
+      box-shadow: 0px 24px 3px -24px #2e1359;
     }
-    ul#nav-menu > li:not(:first-child) {
-      display: block;
-    }
-    ul#account-menu > li:not(:last-child) {
-      display: block;
-    }
-    ul#account-menu > li > p {
-      display: none;
-    }
+  }
+  @media (min-width: 769px) {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2.5vw !important;
   }
 `;
 
