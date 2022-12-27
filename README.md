@@ -1,14 +1,22 @@
-# UIKit+Redux React Starter
+# mvWallet
 
-This repo is aimed to get you started fast with web app development, using create-react-app and setting the project with UIKit CSS framework, Redux for App State and React-Router-DOM for in-app navigation.
+mvWallet is a decentralized application (dApp) where your users can learn how to use other dApps, and also how to explore and invest in Web3.
 
-## Installation
+Designed for new users of Web3, mvWallet is a smart contract wallet with the goal to simplify the UX of decentralized applications, digital assets and other blockchain concepts.
 
-Node version: 16.17.1 (LTS)
+Still in development.
 
-Clone the repository
+## Tech Stack
 
-```bash
-  git clone https://github.com/angelmc32/uikit-redux-react-starter
-  npm install
-```
+**Smart Contracts:** React, Redux, Ethers.js, Styled Components, UIKit
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Authors
+
+Mel
+
+- [Github](https://github.com/angelmc32)
+- [Twitter](https://twitter.com/AngelMelendezC)
