@@ -1,6 +1,7 @@
-import Layout from './components/layout/Layout';
-import AppRouter from './routes/index';
-import './styles/styles.css';
+import Layout from "./components/layout/Layout";
+import AppRouter from "./routes/index";
+import "./styles/styles.css";
+import "./styles/font-styles.css";
 
 const App = () => {
   return (

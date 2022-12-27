@@ -1,9 +1,8 @@
 import React, { useRef } from "react";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-import logo from "../../assets/512-red-outline-purple-noletters.svg";
+import logo from "../../assets/512-red-logo.svg";
 
 const ROUTES = [
   ["Juega", "/jugar"],
@@ -13,8 +12,6 @@ const ROUTES = [
 
 const Navbar = () => {
   const navMenuRef = useRef();
-  const { isConnected } = useSelector((state) => state.web3State);
-  console.log(isConnected);
 
   const navMenuToggle = () => {
     navMenuRef.current.classList.toggle("nav-menu-active");
@@ -43,19 +40,25 @@ const Navbar = () => {
           <span />
           <span className="uk-margin-remove" />
         </Hamburger>
-        <Menu
-          ref={navMenuRef}
-          id="nav-menu"
-          className="uk-navbar-nav uk-margin-right@s"
-        >
+        <Menu ref={navMenuRef} id="nav-menu" className="uk-navbar-nav">
           {ROUTES.map((route, index) => (
             <li key={index} onClick={navMenuToggle}>
               <NavLink to={route[1]}>{route[0]}</NavLink>
             </li>
           ))}
           <li onClick={navMenuToggle}>
-            <NavLink to="/auth">
-              <button className="uk-button uk-button-primary">Ingresar</button>
+            <NavLink to="/auth/ingresar">
+              <button className="uk-button uk-button-text">
+                Ingresar
+                <span uk-icon="sign-in" />
+              </button>
+            </NavLink>
+          </li>
+          <li onClick={navMenuToggle}>
+            <NavLink to="/auth/registro">
+              <button className="uk-button uk-button-primary">
+                Regístrate
+              </button>
             </NavLink>
           </li>
         </Menu>
@@ -95,12 +98,29 @@ const StyledNav = styled.nav`
     text-decoration: none;
   }
 
+  div.uk-navbar-right > ul > li > a:hover {
+    color: #ed1c24;
+  }
+
   div.uk-navbar-right {
     margin-right: 7.5%;
   }
 
   div.uk-navbar-right > div > p {
     display: none;
+  }
+
+  button.uk-button.uk-button-text {
+    color: #fff !important;
+  }
+
+  button.uk-button.uk-button-text:hover {
+    color: #ed1c24 !important;
+  }
+
+  button.uk-button.uk-button-text::before {
+    color: #ed1c24 !important;
+    border-bottom: 1px solid #ed1c24;
   }
 
   @media screen and (max-width: 767px) {
@@ -161,7 +181,8 @@ const StyledNav = styled.nav`
 `;
 
 const Hamburger = styled.div`
-  display: none;
+  display: flex;
+  justify-content: center;
   flex-direction: column;
   cursor: pointer;
   span {
@@ -171,9 +192,8 @@ const Hamburger = styled.div`
     margin-bottom: 6px;
     border-radius: 500px;
   }
-  @media (max-width: 768px) {
-    display: flex;
-    justify-content: center;
+  @media (min-width: 768px) {
+    display: none;
   }
 `;
 
@@ -189,7 +209,6 @@ const Menu = styled.ul`
   @media (min-width: 769px) {
     display: flex;
     justify-content: flex-end;
-    margin-right: 2.5vw !important;
   }
 `;
 
