@@ -1,0 +1,2 @@
+export const WALLET_FACTORY_CONTRACT_ADD =
+  "0x31ca987350f34d5af3c620a23ee8bb44bc08db2c";
