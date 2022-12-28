@@ -5,9 +5,9 @@ import styled from "styled-components";
 import logo from "../../assets/512-red-logo.svg";
 
 const ROUTES = [
-  ["Juega", "/jugar"],
-  ["Aprende", "/aprender"],
-  ["Explora", "/explorar"],
+  ["Play", "/play"],
+  ["Learn", "/learn"],
+  ["Explore", "/explore"],
 ];
 
 const Navbar = () => {
@@ -47,18 +47,8 @@ const Navbar = () => {
             </li>
           ))}
           <li onClick={navMenuToggle}>
-            <NavLink to="/auth/ingresar">
-              <button className="uk-button uk-button-text">
-                Ingresar
-                <span uk-icon="sign-in" />
-              </button>
-            </NavLink>
-          </li>
-          <li onClick={navMenuToggle}>
-            <NavLink to="/auth/registro">
-              <button className="uk-button uk-button-primary">
-                Regístrate
-              </button>
+            <NavLink to="/wallet">
+              <button className="uk-button uk-button-primary">My Wallet</button>
             </NavLink>
           </li>
         </Menu>
